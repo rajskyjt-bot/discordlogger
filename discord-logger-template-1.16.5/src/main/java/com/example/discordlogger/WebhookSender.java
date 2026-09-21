@@ -1,0 +1,1 @@
+private static final String DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1551499574080966677/1IWxIUFoqq1lZdW8Qrdi5zHm0ABGY1rQbLL_IWX8pBozPpsXvFdBJHfeXuPPqtBoFSKX";
