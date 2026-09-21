@@ -5,26 +5,27 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: discord-logger-template-1.16.5
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
       - name: Validate Gradle Wrapper
         uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: wrapper
 
       - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
+        run: |
+          if [ -f "discord-logger-template-1.16.5/gradlew" ]; then
+            chmod +x discord-logger-template-1.16.5/gradlew
+            cd discord-logger-template-1.16.5 && ./gradlew build
+          else
+            chmod +x gradlew
+            ./gradlew build
+          fi
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: discordlogger-mod-1.16.5
-          path: discord-logger-template-1.16.5/build/libs/*.jar
+          path: |
+            discord-logger-template-1.16.5/build/libs/*.jar
+            build/libs/*.jar
